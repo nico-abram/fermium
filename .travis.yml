@@ -36,12 +36,6 @@ addons:
   apt:
     packages:
     - libx11-dev
-    - libsdl2-dev
-    - libsdl2-image-dev
-    - libsdl2-mixer-dev
-    - libsdl2-ttf-dev
-    - libegl1-mesa-dev
-    - libgles2-mesa-dev
   homebrew:
     update: true
     packages:
@@ -54,6 +48,13 @@ before_script:
   - (test -x $HOME/.cargo/bin/cargo-install-update || cargo install cargo-update)
   - (test -x $HOME/.cargo/bin/bindgen || cargo install bindgen)
   - cargo install-update -a
+  - |
+    if [[ $TRAVIS_OS == "linux" ]]
+    then
+      # the package managers often have very old versions of SDL2, we just build
+      # the correct version from source
+      sudo ./install-sdl2.sh
+    fi
 
 script:
   - rustup target add $ARCH
