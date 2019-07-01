@@ -49,7 +49,7 @@ before_script:
   - (test -x $HOME/.cargo/bin/bindgen || cargo install bindgen)
   - cargo install-update -a
   - |
-    if [[ $TRAVIS_OS == "linux" ]]
+    if [[ $TRAVIS_OS_NAME == "linux" ]]
     then
       # the package managers often have very old versions of SDL2, we just build
       # the correct version from source
